@@ -7,8 +7,21 @@ import (
 
 type Brand struct {
 	*gorm.Model
-	Name     string `gorm:"unique" json:"name"`
+	Name     string ` json:"name"`
 	StatusId string `json:"status_id"`
+}
+
+type BrandReq struct {
+	Name     string `json:"name"`
+	StatusId string `json:"status_id"`
+}
+
+func (b *BrandReq) FormatToBrand() *Brand {
+	return &Brand{
+		Model:    nil,
+		Name:     b.Name,
+		StatusId: b.StatusId,
+	}
 }
 
 func (b *Brand) GetBrandResp() *BrandResp {

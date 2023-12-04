@@ -56,18 +56,18 @@ func (rs *BrandResource) GetBrandsById(w http.ResponseWriter, r *http.Request) {
 //	500: ErrorResponse
 //	200: BrandSuccessResp200
 func (rs *BrandResource) CreateBrand(w http.ResponseWriter, r *http.Request) {
-	var body models.Brand
+	var body models.BrandReq
 	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 		controllers.ErrInvalidData.ErrorResponse().JSONResponse(w)
 		return
 	}
-	brnd, err := rs.Brands.Create(&body)
+	brand, err := rs.Brands.Create(body.FormatToBrand())
 	if err != nil {
 		fmt.Println("Can't create the requested : ", err.Error())
 		controllers.ErrInternalServerError.ErrorResponse().JSONResponse(w)
 		return
 	}
-	newResp := brnd.GetBrandResp()
+	newResp := brand.GetBrandResp()
 	controllers.RespondWithJSON(w, http.StatusOK, newResp)
 }
 
@@ -78,9 +78,9 @@ func (rs *BrandResource) CreateBrand(w http.ResponseWriter, r *http.Request) {
 //	500: ErrorResponse
 //	200: BrandSuccessResp200
 func (rs *BrandResource) UpdateBrand(w http.ResponseWriter, r *http.Request) {
-	//var body models.Brand
+	var body models.BrandReq
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
-	brnd, err := rs.Brands.GetBrandById(id)
+	brand, err := rs.Brands.GetBrandById(id)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			controllers.ErrNotFound.ErrorResponse().JSONResponse(w)
@@ -89,17 +89,19 @@ func (rs *BrandResource) UpdateBrand(w http.ResponseWriter, r *http.Request) {
 		controllers.ErrInternalServerError.ErrorResponse().JSONResponse(w)
 		return
 	}
-	if err := json.NewDecoder(r.Body).Decode(&brnd); err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 		controllers.ErrInternalServerError.ErrorResponse().JSONResponse(w)
 		return
 	}
-	brnd, err = rs.Brands.Update(brnd)
+	brand.StatusId = body.StatusId
+	brand.Name = body.Name
+	brand, err = rs.Brands.Update(brand)
 	if err != nil {
 		controllers.ErrInternalServerError.ErrorResponse().JSONResponse(w)
 		return
 	}
-	log.Println("Brand Updated : ", brnd)
-	newResp := brnd.GetBrandResp()
+	log.Println("Brand Updated : ", brand)
+	newResp := brand.GetBrandResp()
 	service.RespondWithJSON(w, http.StatusOK, newResp)
 }
 
@@ -111,13 +113,13 @@ func (rs *BrandResource) UpdateBrand(w http.ResponseWriter, r *http.Request) {
 //	200: DeleteResponse
 func (rs *BrandResource) DeleteBrand(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
-	brnd, err := rs.Brands.Delete(id)
+	brand, err := rs.Brands.Delete(id)
 	if err != nil {
 		fmt.Println("Delete failed, brand not found")
 		controllers.ErrNotFound.ErrorResponse().JSONResponse(w)
 		return
 	}
-	log.Println("Brand Deleted : ", brnd)
+	log.Println("Brand Deleted : ", brand)
 	service.RespondWithJSON(w, http.StatusOK, map[string]string{
 		"message": "Deleted Successfully"})
 }

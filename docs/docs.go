@@ -8,7 +8,7 @@
 // schemes:
 //   - http
 //
-// BasePath: /
+// BasePath: /api
 // Host: localhost:8085
 //
 // Consumes:
