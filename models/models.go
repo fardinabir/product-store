@@ -39,11 +39,17 @@ type BrandResp struct {
 
 type Category struct {
 	*gorm.Model
-	Name          string     `json:"name"`
-	ParentId      *uint      `json:"parent_id,omitempty"`
-	Sequence      uint       `json:"sequence,omitempty"`
-	StatusId      string     `json:"status_id"`
-	SubCategories []Category `gorm:"foreignKey:ParentId"`
+	Name          string      `json:"name"`
+	ParentId      *uint       `json:"parent_id,omitempty"`
+	Sequence      uint        `json:"sequence,omitempty"`
+	StatusId      string      `json:"status_id"`
+	SubCategories []*Category `gorm:"foreignKey:ParentId"`
+}
+
+type CategoryNode struct {
+	ID       uint           `json:"id"`
+	Name     string         `json:"category_name"`
+	Children []CategoryNode `json:"children"`
 }
 
 type CategoryReq struct {

@@ -26,5 +26,6 @@ func (rs *CategoryResource) Router() *chi.Mux {
 	r.Post("/new", rs.CreateCategory)
 	r.Patch("/{id:[0-9]+}", rs.UpdateCategory)
 	r.Delete("/{id:[0-9]+}", rs.DeleteCategory)
+	r.Get("/get-tree", rs.GetCategoriesTree)
 	return r
 }

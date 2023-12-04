@@ -145,3 +145,20 @@ func (rs *CategoryResource) DeleteCategory(w http.ResponseWriter, r *http.Reques
 	service.RespondWithJSON(w, http.StatusOK, map[string]string{
 		"message": "Deleted Successfully"})
 }
+
+// swagger:route GET /categories/get-tree Categories GetCategoriesTree
+// For getting the tree of all the categories, shows both active and inactive categories
+// responses:
+//
+//	500: ErrorResponse
+//	200: SuccessRespCategories
+func (rs *CategoryResource) GetCategoriesTree(w http.ResponseWriter, r *http.Request) {
+	res, err := rs.Categories.GetCategoriesTree(nil)
+	if err != nil {
+		log.Println("Can't generate the tree : ", err.Error)
+		controllers.ErrNotFound.ErrorResponse().JSONResponse(w)
+		return
+	}
+	log.Println("Categories tree : ", res)
+	controllers.RespondWithJSON(w, http.StatusOK, res)
+}

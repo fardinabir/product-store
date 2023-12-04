@@ -9,6 +9,7 @@ type CategoryStore interface {
 	Update(u *models.Category) (*models.Category, error)
 	Delete(id int) (*models.Category, error)
 	GetCategories(q map[string]interface{}) ([]models.CategoryResp, error)
+	GetCategoriesTree(parentId *uint) ([]models.CategoryNode, error)
 	GetCategoryById(id int) (*models.Category, error)
 	GetMaxSequence(parentId *uint) (uint, error)
 }

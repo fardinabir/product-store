@@ -84,3 +84,31 @@ func (s *CategoryStore) GetCategoryById(id int) (*models.Category, error) {
 	}
 	return cat, nil
 }
+
+func (s *CategoryStore) GetCategoriesTree(parentId *uint) ([]models.CategoryNode, error) {
+	var categories []*models.Category
+	var err error
+	query := s.DB.Model(&models.Category{})
+	if parentId == nil {
+		query = query.Where("parent_id IS NULL")
+	} else {
+		query = query.Where("parent_id = ?", parentId)
+	}
+	res := query.Order("sequence").Find(&categories)
+	if res.Error != nil {
+		log.Println("Error while getting category tree in db", res.Error)
+		return nil, res.Error
+	}
+
+	categoryNodes := make([]models.CategoryNode, len(categories))
+	for i := range categories {
+		categoryNodes[i].ID = categories[i].ID
+		categoryNodes[i].Name = categories[i].Name
+		categoryNodes[i].Children, err = s.GetCategoriesTree(&categories[i].ID)
+		if err != nil {
+			log.Println("Error while getting category tree in db", res.Error)
+			return nil, res.Error
+		}
+	}
+	return categoryNodes, nil
+}
