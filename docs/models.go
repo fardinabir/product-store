@@ -34,7 +34,7 @@ type SuccessRespCategories struct {
 	data []models.CategoryResp
 }
 
-// model for create categories success
+// model for create update categories success
 // swagger:response CategorySuccessResp200
 type CategorySuccessResp200 struct {
 	// in:body
@@ -48,6 +48,20 @@ type CategoryTreeResp struct {
 	data []models.CategoryNode
 }
 
+// model for get suppliers success response
+// swagger:response SuccessRespSuppliers
+type SuccessRespSuppliers struct {
+	// in:body
+	data []models.SupplierResp
+}
+
+// model for create update supplier success
+// swagger:response SupplierSuccessResp200
+type SupplierSuccessResp200 struct {
+	// in:body
+	data models.SupplierResp
+}
+
 // model for delete response
 // swagger:response DeleteResponse
 type DeleteResponse struct {
@@ -59,7 +73,7 @@ type DeleteResponse struct {
 
 // ########################### Request Models ############################
 
-// model for adding and updating brands
+// model for adding brands
 // swagger:parameters CreateBrand
 type AddBrandRequest struct {
 	// The request body for adding a brand.
@@ -71,7 +85,7 @@ type AddBrandRequest struct {
 // model for updating brands
 // swagger:parameters UpdateBrand
 type UpdateBrandRequest struct {
-	// path id for update brand
+	// path id for updating brand
 	//
 	// in:path
 	ID int `json:"id"`
@@ -81,9 +95,17 @@ type UpdateBrandRequest struct {
 	Body models.BrandReq
 }
 
-// model for adding and updating categories
-// swagger:parameters CreateCategory UpdateCategory
+// model for adding categories
+// swagger:parameters CreateCategory
 type AddCategoryRequest struct {
+	// in: body
+	// required: true
+	Body models.CategoryReq `json:"body"`
+}
+
+// model for updating categories
+// swagger:parameters UpdateCategory
+type UpdateCategoryRequest struct {
 	// path id
 	//
 	// in:path
@@ -93,10 +115,30 @@ type AddCategoryRequest struct {
 	Body models.CategoryReq `json:"body"`
 }
 
+// model for adding suppliers
+// swagger:parameters CreateSupplier
+type AddSupplierRequest struct {
+	// in: body
+	// required: true
+	Body models.SupplierReq `json:"body"`
+}
+
+// model for updating suppliers
+// swagger:parameters UpdateSupplier
+type UpdateSupplierRequest struct {
+	// path id
+	//
+	// in:path
+	ID int `json:"id"`
+	// in: body
+	// required: true
+	Body models.SupplierReq `json:"body"`
+}
+
 // model for id path param
-// swagger:parameters GetBrandsById DeleteBrand GetCategoryById DeleteCategory
+// swagger:parameters GetBrandsById DeleteBrand GetCategoryById DeleteCategory GetSupplierById DeleteSupplier
 type ReqIDParam struct {
-	// The id of the brands, categories
+	// The id of the brands, categories, suppliers
 	//
 	// in:path
 	// required:true

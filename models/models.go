@@ -1,7 +1,6 @@
 package models
 
 import (
-	"encoding/json"
 	"gorm.io/gorm"
 )
 
@@ -25,16 +24,19 @@ func (b *BrandReq) FormatToBrand() *Brand {
 }
 
 func (b *Brand) GetBrandResp() *BrandResp {
-	var newResp BrandResp
-	bytResp, _ := json.Marshal(b)
-	json.Unmarshal(bytResp, &newResp)
-	return &newResp
+	return &BrandResp{
+		ID:        b.ID,
+		Name:      b.Name,
+		StatusId:  b.StatusId,
+		CreatedAt: b.CreatedAt.String(),
+	}
 }
 
 type BrandResp struct {
-	ID       uint   `json:"id"`
-	Name     string `json:"name"`
-	StatusId string `json:"status_id"`
+	ID        uint   `json:"id"`
+	Name      string `json:"name"`
+	StatusId  string `json:"status_id"`
+	CreatedAt string `json:"created_at"`
 }
 
 type Category struct {
@@ -70,47 +72,61 @@ func (b *CategoryReq) FormatToCategory() *Category {
 }
 
 type CategoryResp struct {
-	ID       uint   `json:"id"`
-	Name     string `json:"name"`
-	ParentId uint   `json:"parent_id"`
-	Sequence uint   `json:"sequence"`
-	StatusId string `json:"status_id"`
+	ID        uint   `json:"id"`
+	Name      string `json:"name"`
+	ParentId  uint   `json:"parent_id"`
+	Sequence  uint   `json:"sequence"`
+	StatusId  string `json:"status_id"`
+	CreatedAt string `json:"created_at"`
 }
 
 func (b *Category) GetCategoryResp() *CategoryResp {
 	return &CategoryResp{
-		ID:       b.ID,
-		Name:     b.Name,
-		ParentId: *b.ParentId,
-		Sequence: b.Sequence,
-		StatusId: b.StatusId,
+		ID:        b.ID,
+		Name:      b.Name,
+		ParentId:  *b.ParentId,
+		Sequence:  b.Sequence,
+		StatusId:  b.StatusId,
+		CreatedAt: b.CreatedAt.String(),
 	}
 }
 
 type Supplier struct {
 	*gorm.Model
-	Name               string
-	Email              string
-	Phone              string
-	StatusId           string
-	IsVerifiedSupplier bool
+	SupplierReq
 }
 
 type SupplierResp struct {
-	Name               string
-	Email              string
-	Phone              string
-	StatusId           string
-	IsVerifiedSupplier bool
+	ID                 uint   `json:"id"`
+	Name               string `json:"name"`
+	Email              string `json:"email"`
+	Phone              string `json:"phone"`
+	StatusId           string `json:"status_id"`
+	IsVerifiedSupplier bool   `json:"is_verified_supplier"`
+	CreatedAt          string `json:"created_at"`
 }
 
-func (b *Supplier) GetSupplierResp() *SupplierResp {
+type SupplierReq struct {
+	Name               string `json:"name"`
+	Email              string `json:"email"`
+	Phone              string `json:"phone"`
+	StatusId           string `json:"status_id"`
+	IsVerifiedSupplier bool   `json:"is_verified_supplier"`
+}
+
+func (b *SupplierReq) FormatToSupplier() *Supplier {
+	return &Supplier{nil, *b}
+}
+
+func (s *Supplier) GetSupplierResp() *SupplierResp {
 	return &SupplierResp{
-		Name:               b.Name,
-		Email:              b.Email,
-		Phone:              b.Phone,
-		StatusId:           b.StatusId,
-		IsVerifiedSupplier: b.IsVerifiedSupplier,
+		ID:                 s.ID,
+		Name:               s.Name,
+		Email:              s.Email,
+		Phone:              s.Phone,
+		StatusId:           s.StatusId,
+		IsVerifiedSupplier: s.IsVerifiedSupplier,
+		CreatedAt:          s.CreatedAt.String(),
 	}
 }
 
