@@ -1,0 +1,316 @@
+{
+  "info": {
+    "_postman_id": "fc46ebb8-f7a2-4b30-9831-b5fcd0e3e32c",
+    "name": "Product Store",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+    "_exporter_id": "25350564"
+  },
+  "item": [
+    {
+      "name": "Brands",
+      "item": [
+        {
+          "name": "http://localhost:8085/api/brands/",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8085/api/brands/"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/ Copy",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8085/api/brands/38"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/new",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\" : \"Prefunmance\",\n    \"status_id\" : \"1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8085/api/brands/new"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/new Copy",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Godrej\",\n  \"status_id\": \"1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8085/api/brands/28"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/ Copy",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "http://localhost:8085/api/brands/38"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "http://localhost:8085/api/categories/",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8085/api/categories/"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/ Copy",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8085/api/categories/20"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/new",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Camera\",\n    \"parent_id\": 1,\n    \"status_id\": \"1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8085/api/categories/new"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/new Copy",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Phone\",\n    \"parent_id\": 1,\n    \"status_id\": \"1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8085/api/categories/12"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/ Copy",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "http://localhost:8085/api/categories/12"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/categories/tree",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8085/api/categories/get-tree"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Suppliers",
+      "item": [
+        {
+          "name": "http://localhost:8085/api/categories/",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8085/api/suppliers/"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/ Copy",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8085/api/suppliers/1"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/new",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"name\" : \"Addidas\",\n\t\"email\": \"addidasint@gmail.com\",\n\t\"phone\": \"01912121212\",\n\t\"status_id\":\"1\",\n\t\"is_verified_supplier\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8085/api/suppliers/new"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/new Copy",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Xiaomi\",\n    \"email\": \"xiaomebd@gmail.com\",\n    \"phone\": \"01912121212\",\n    \"status_id\": \"1\",\n    \"is_verified_supplier\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8085/api/suppliers/16"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/ Copy",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "http://localhost:8085/api/suppliers/3"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "item": [
+        {
+          "name": "http://localhost:8085/api/categories/",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8085/api/products?min_price=700&max_price=2000&product_name=Grey Fatua",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8085",
+              "path": [
+                "api",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "min_price",
+                  "value": "700"
+                },
+                {
+                  "key": "max_price",
+                  "value": "2000"
+                },
+                {
+                  "key": "product_name",
+                  "value": "Grey Fatua"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/ Copy",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:8085/api/products/1"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/new",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\":\"Black Fatua\",\n\t\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit\",\n\t\"specifications\":\"specifications details\",\n\t\"brands_id\": 14,\n\t\"categories_id\":4,\n    \"suppliers_id\":3,\n\t\"unit_price\":1700,\n\t\"discount_price\":1500,\n\t\"tags\":\"white,fatua\",\n\t\"status_id\":\"1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8085/api/products/new"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/new Copy",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\":\"Blue Fatua\",\n\t\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit\",\n\t\"specifications\":\"specifications details\",\n\t\"brands_id\": 14,\n\t\"categories_id\":4,\n    \"suppliers_id\":3,\n\t\"unit_price\":1700,\n\t\"discount_price\":1600,\n\t\"tags\":\"blue,fatua\",\n\t\"status_id\":\"1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "http://localhost:8085/api/products/2"
+          },
+          "response": []
+        },
+        {
+          "name": "http://localhost:8085/api/brands/ Copy",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "http://localhost:8085/api/products/3"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

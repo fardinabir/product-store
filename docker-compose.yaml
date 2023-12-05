@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  app-db:
+    container_name: product-store-db
+    image: postgres
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=productsdb
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+      - ./database/db.sql:/docker-entrypoint-initdb.d/
+  app:
+    container_name: product-store
+    build:
+      dockerfile: DockerfileServer
+    ports:
+      - "8085:8085"
+    depends_on:
+      - app-db
+  swagger:
+    container_name: swagger
+    build:
+      dockerfile: DockerfileSwagger
+    volumes:
+      - data:/data
+    ports:
+      - "8090:8090"
+volumes:
+  dbdata:
+  data:
