@@ -74,7 +74,7 @@ func (b *CategoryReq) FormatToCategory() *Category {
 type CategoryResp struct {
 	ID        uint   `json:"id"`
 	Name      string `json:"name"`
-	ParentId  uint   `json:"parent_id"`
+	ParentId  *uint  `json:"parent_id"`
 	Sequence  uint   `json:"sequence"`
 	StatusId  string `json:"status_id"`
 	CreatedAt string `json:"created_at"`
@@ -84,7 +84,7 @@ func (b *Category) GetCategoryResp() *CategoryResp {
 	return &CategoryResp{
 		ID:        b.ID,
 		Name:      b.Name,
-		ParentId:  *b.ParentId,
+		ParentId:  b.ParentId,
 		Sequence:  b.Sequence,
 		StatusId:  b.StatusId,
 		CreatedAt: b.CreatedAt.String(),
@@ -132,16 +132,79 @@ func (s *Supplier) GetSupplierResp() *SupplierResp {
 
 type Product struct {
 	*gorm.Model
-	Name           string
-	Description    string
-	Specifications string
-	BrandsID       uint
-	CategoriesID   uint
-	SuppliersID    uint
-	UnitPrice      int
-	DiscountPrice  int
-	Tags           string
-	StatusId       string
+	Name           string `json:"name"`
+	Description    string `json:"description" gorm:"column:description;size:100"`
+	Specifications string `json:"specifications"`
+
+	UnitPrice     int    `json:"unit_price"`
+	DiscountPrice int    `json:"discount_price"`
+	Tags          string `json:"tags"`
+	StatusId      string `json:"status_id"`
+	BrandID       uint   `json:"brands_id"`
+	Brand         Brand
+	CategoryID    uint `json:"categories_id"`
+	Category      Category
+	SupplierID    uint `json:"suppliers_id"`
+	Supplier      Supplier
+}
+
+type ProductResp struct {
+	ID             uint   `json:"id"`
+	Name           string `json:"name"`
+	Description    string `json:"description" gorm:"column:description;size:100"`
+	Specifications string `json:"specifications"`
+	BrandsID       uint   `json:"brands_id"`
+	CategoriesID   uint   `json:"categories_id"`
+	SuppliersID    uint   `json:"suppliers_id"`
+	UnitPrice      int    `json:"unit_price"`
+	DiscountPrice  int    `json:"discount_price"`
+	Tags           string `json:"tags"`
+	StatusId       string `json:"status_id"`
+}
+
+func (p *Product) GetProductResp() *ProductResp {
+	return &ProductResp{
+		ID:             p.ID,
+		Name:           p.Name,
+		Description:    p.Description,
+		Specifications: p.Specifications,
+		BrandsID:       p.BrandID,
+		CategoriesID:   p.CategoryID,
+		SuppliersID:    p.SupplierID,
+		UnitPrice:      p.UnitPrice,
+		DiscountPrice:  p.DiscountPrice,
+		Tags:           p.Tags,
+		StatusId:       p.StatusId,
+	}
+}
+
+type ProductReq struct {
+	Name           string `json:"name"`
+	Description    string `json:"description" gorm:"column:description;size:100"`
+	Specifications string `json:"specifications"`
+	BrandsID       uint   `json:"brands_id"`
+	CategoriesID   uint   `json:"categories_id"`
+	SuppliersID    uint   `json:"suppliers_id"`
+	UnitPrice      int    `json:"unit_price"`
+	DiscountPrice  int    `json:"discount_price"`
+	Tags           string `json:"tags"`
+	StatusId       string `json:"status_id"`
+}
+
+func (p *ProductReq) FormatToProduct() *Product {
+	return &Product{
+		Model:          nil,
+		Name:           p.Name,
+		Description:    p.Description,
+		Specifications: p.Specifications,
+		UnitPrice:      p.UnitPrice,
+		DiscountPrice:  p.DiscountPrice,
+		Tags:           p.Tags,
+		StatusId:       p.StatusId,
+		BrandID:        p.BrandsID,
+		CategoryID:     p.CategoriesID,
+		SupplierID:     p.SuppliersID,
+	}
 }
 
 type ProductsStock struct {
