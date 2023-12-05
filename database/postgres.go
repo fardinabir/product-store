@@ -40,5 +40,10 @@ func InitDb() (*gorm.DB, error) {
 		return nil, err
 	}
 	db.AutoMigrate(&models.Brand{}, &models.Category{}, &models.Supplier{}, &models.Product{}, &models.ProductsStock{})
+
+	// Associations
+	db.Model(&models.Product{}).Association("Category")
+	db.Model(&models.Product{}).Association("Brand")
+	db.Model(&models.Product{}).Association("Supplier")
 	return db, nil
 }

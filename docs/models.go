@@ -62,6 +62,20 @@ type SupplierSuccessResp200 struct {
 	data models.SupplierResp
 }
 
+// model for get products success response
+// swagger:response SuccessRespProducts
+type SuccessRespProducts struct {
+	// in:body
+	data []models.ProductResp
+}
+
+// model for create update products success
+// swagger:response ProductSuccessResp200
+type ProductSuccessResp200 struct {
+	// in:body
+	data models.ProductResp
+}
+
 // model for delete response
 // swagger:response DeleteResponse
 type DeleteResponse struct {
@@ -135,8 +149,42 @@ type UpdateSupplierRequest struct {
 	Body models.SupplierReq `json:"body"`
 }
 
+// model for adding products
+// swagger:parameters CreateProduct
+type AddProductRequest struct {
+	// in: body
+	// required: true
+	Body models.ProductReq `json:"body"`
+}
+
+// model for updating products
+// swagger:parameters UpdateProdcut
+type UpdateProductRequest struct {
+	// path id
+	//
+	// in:path
+	ID int `json:"id"`
+	// in: body
+	// required: true
+	Body models.SupplierReq `json:"body"`
+}
+
+// model for getting products
+// swagger:parameters GetProducts
+type GetProductRequest struct {
+
+	// in:query
+	Brand string `json:"brand"`
+	// in:query
+	Category string `json:"category"`
+	// in:query
+	Supplier string `json:"supplier"`
+	// in:query
+	ProductName string `json:"product_name"`
+}
+
 // model for id path param
-// swagger:parameters GetBrandsById DeleteBrand GetCategoryById DeleteCategory GetSupplierById DeleteSupplier
+// swagger:parameters GetBrandsById DeleteBrand GetCategoryById DeleteCategory GetSupplierById DeleteSupplier GetProductById DeleteProduct
 type ReqIDParam struct {
 	// The id of the brands, categories, suppliers
 	//

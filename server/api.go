@@ -3,6 +3,7 @@ package server
 import (
 	"github.com/fardinabir/product-store/controllers/brands"
 	"github.com/fardinabir/product-store/controllers/categories"
+	"github.com/fardinabir/product-store/controllers/products"
 	"github.com/fardinabir/product-store/controllers/suppliers"
 	"github.com/fardinabir/product-store/database"
 	"github.com/go-chi/chi/v5"
@@ -51,10 +52,17 @@ func New() (*chi.Mux, error) {
 		log.Println("Failed to get Category resource, ", err.Error())
 		return nil, err
 	}
+
+	productsResource, err := products.NewResource()
+	if err != nil {
+		log.Println("Failed to get Category resource, ", err.Error())
+		return nil, err
+	}
 	r.Route("/api", func(r chi.Router) {
 		r.Mount("/brands", brandResource.Router())
 		r.Mount("/categories", catResource.Router())
 		r.Mount("/suppliers", supplierResource.Router())
+		r.Mount("/products", productsResource.Router())
 	})
 
 	return r, nil

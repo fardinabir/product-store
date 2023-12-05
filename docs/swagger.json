@@ -71,7 +71,7 @@
             "type": "integer",
             "format": "int64",
             "x-go-name": "ID",
-            "description": "The id of the brands, categories",
+            "description": "The id of the brands, categories, suppliers",
             "name": "id",
             "in": "path",
             "required": true
@@ -97,7 +97,7 @@
             "type": "integer",
             "format": "int64",
             "x-go-name": "ID",
-            "description": "The id of the brands, categories",
+            "description": "The id of the brands, categories, suppliers",
             "name": "id",
             "in": "path",
             "required": true
@@ -123,7 +123,7 @@
             "type": "integer",
             "format": "int64",
             "x-go-name": "ID",
-            "description": "path id for update brand",
+            "description": "path id for updating brand",
             "name": "id",
             "in": "path",
             "required": true
@@ -191,15 +191,6 @@
         "operationId": "CreateCategory",
         "parameters": [
           {
-            "type": "integer",
-            "format": "int64",
-            "x-go-name": "ID",
-            "description": "path id",
-            "name": "id",
-            "in": "path",
-            "required": true
-          },
-          {
             "x-go-name": "Body",
             "name": "body",
             "in": "body",
@@ -231,7 +222,7 @@
             "type": "integer",
             "format": "int64",
             "x-go-name": "ID",
-            "description": "The id of the brands, categories",
+            "description": "The id of the brands, categories, suppliers",
             "name": "id",
             "in": "path",
             "required": true
@@ -257,7 +248,7 @@
             "type": "integer",
             "format": "int64",
             "x-go-name": "ID",
-            "description": "The id of the brands, categories",
+            "description": "The id of the brands, categories, suppliers",
             "name": "id",
             "in": "path",
             "required": true
@@ -307,6 +298,280 @@
           }
         }
       }
+    },
+    "/products/": {
+      "get": {
+        "description": "For getting the list of all the products, is filterable by fields",
+        "tags": [
+          "Products"
+        ],
+        "operationId": "GetProducts",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Brand",
+            "name": "brand",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "Category",
+            "name": "category",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "Supplier",
+            "name": "supplier",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "ProductName",
+            "name": "product_name",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/SuccessRespProducts"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    },
+    "/products/new": {
+      "post": {
+        "description": "For creating new product entry",
+        "tags": [
+          "Products"
+        ],
+        "operationId": "CreateProduct",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ProductSuccessResp200"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "description": "Gets the specific product of given product id",
+        "tags": [
+          "Products"
+        ],
+        "operationId": "GetProductById",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "ID",
+            "description": "The id of the brands, categories, suppliers",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ProductSuccessResp200"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      },
+      "delete": {
+        "description": "For deleting existing product",
+        "tags": [
+          "Products"
+        ],
+        "operationId": "DeleteProduct",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "ID",
+            "description": "The id of the brands, categories, suppliers",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/DeleteResponse"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      },
+      "patch": {
+        "description": "Updates existing product entry",
+        "tags": [
+          "Products"
+        ],
+        "operationId": "UpdateProduct",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ProductSuccessResp200"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    },
+    "/suppliers/": {
+      "get": {
+        "description": "For getting the list of all the suppliers, shows both active and inactive suppliers",
+        "tags": [
+          "Suppliers"
+        ],
+        "operationId": "GetSuppliers",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/SuccessRespSuppliers"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    },
+    "/suppliers/new": {
+      "post": {
+        "description": "For creating new supplier entry",
+        "tags": [
+          "Suppliers"
+        ],
+        "operationId": "CreateSupplier",
+        "parameters": [
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SupplierReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/SupplierSuccessResp200"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    },
+    "/suppliers/{id}": {
+      "get": {
+        "description": "Gets the specific supplier of given supplier id",
+        "tags": [
+          "Suppliers"
+        ],
+        "operationId": "GetSupplierById",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "ID",
+            "description": "The id of the brands, categories, suppliers",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/SupplierSuccessResp200"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      },
+      "delete": {
+        "description": "For deleting existing supplier",
+        "tags": [
+          "Suppliers"
+        ],
+        "operationId": "DeleteSupplier",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "ID",
+            "description": "The id of the brands, categories, suppliers",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/DeleteResponse"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      },
+      "patch": {
+        "description": "Updates existing supplier entry",
+        "tags": [
+          "Suppliers"
+        ],
+        "operationId": "UpdateSupplier",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "ID",
+            "description": "path id",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "x-go-name": "Body",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SupplierReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/SupplierSuccessResp200"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -327,6 +592,10 @@
     "BrandResp": {
       "type": "object",
       "properties": {
+        "created_at": {
+          "type": "string",
+          "x-go-name": "CreatedAt"
+        },
         "id": {
           "type": "integer",
           "format": "uint64",
@@ -387,6 +656,10 @@
     "CategoryResp": {
       "type": "object",
       "properties": {
+        "created_at": {
+          "type": "string",
+          "x-go-name": "CreatedAt"
+        },
         "id": {
           "type": "integer",
           "format": "uint64",
@@ -412,6 +685,174 @@
         }
       },
       "x-go-package": "github.com/fardinabir/product-store/models"
+    },
+    "ProductReq": {
+      "type": "object",
+      "properties": {
+        "brands_id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "BrandsID"
+        },
+        "categories_id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "CategoriesID"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "discount_price": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "DiscountPrice"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "specifications": {
+          "type": "string",
+          "x-go-name": "Specifications"
+        },
+        "status_id": {
+          "type": "string",
+          "x-go-name": "StatusId"
+        },
+        "suppliers_id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "SuppliersID"
+        },
+        "tags": {
+          "type": "string",
+          "x-go-name": "Tags"
+        },
+        "unit_price": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UnitPrice"
+        }
+      },
+      "x-go-package": "github.com/fardinabir/product-store/models"
+    },
+    "ProductResp": {
+      "type": "object",
+      "properties": {
+        "brand_id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "BrandID"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "CategoryID"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "discount_price": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "DiscountPrice"
+        },
+        "id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "specifications": {
+          "type": "string",
+          "x-go-name": "Specifications"
+        },
+        "status_id": {
+          "type": "string",
+          "x-go-name": "StatusId"
+        },
+        "supplier_id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "SupplierID"
+        },
+        "tags": {
+          "type": "string",
+          "x-go-name": "Tags"
+        },
+        "unit_price": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "UnitPrice"
+        }
+      },
+      "x-go-package": "github.com/fardinabir/product-store/models"
+    },
+    "SupplierReq": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "is_verified_supplier": {
+          "type": "boolean",
+          "x-go-name": "IsVerifiedSupplier"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "phone": {
+          "type": "string",
+          "x-go-name": "Phone"
+        },
+        "status_id": {
+          "type": "string",
+          "x-go-name": "StatusId"
+        }
+      },
+      "x-go-package": "github.com/fardinabir/product-store/models"
+    },
+    "SupplierResp": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "x-go-name": "CreatedAt"
+        },
+        "email": {
+          "type": "string",
+          "x-go-name": "Email"
+        },
+        "id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "ID"
+        },
+        "is_verified_supplier": {
+          "type": "boolean",
+          "x-go-name": "IsVerifiedSupplier"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "phone": {
+          "type": "string",
+          "x-go-name": "Phone"
+        },
+        "status_id": {
+          "type": "string",
+          "x-go-name": "StatusId"
+        }
+      },
+      "x-go-package": "github.com/fardinabir/product-store/models"
     }
   },
   "responses": {
@@ -422,7 +863,7 @@
       }
     },
     "CategorySuccessResp200": {
-      "description": "model for create categories success",
+      "description": "model for create update categories success",
       "schema": {
         "$ref": "#/definitions/CategoryResp"
       }
@@ -460,6 +901,12 @@
         }
       }
     },
+    "ProductSuccessResp200": {
+      "description": "model for create update products success",
+      "schema": {
+        "$ref": "#/definitions/ProductResp"
+      }
+    },
     "SuccessRespBrands": {
       "description": "model for get brands success response",
       "schema": {
@@ -476,6 +923,30 @@
         "items": {
           "$ref": "#/definitions/CategoryResp"
         }
+      }
+    },
+    "SuccessRespProducts": {
+      "description": "model for get products success response",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/ProductResp"
+        }
+      }
+    },
+    "SuccessRespSuppliers": {
+      "description": "model for get suppliers success response",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/SupplierResp"
+        }
+      }
+    },
+    "SupplierSuccessResp200": {
+      "description": "model for create update supplier success",
+      "schema": {
+        "$ref": "#/definitions/SupplierResp"
       }
     }
   }

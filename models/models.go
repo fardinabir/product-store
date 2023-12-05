@@ -153,9 +153,9 @@ type ProductResp struct {
 	Name           string `json:"name"`
 	Description    string `json:"description" gorm:"column:description;size:100"`
 	Specifications string `json:"specifications"`
-	BrandsID       uint   `json:"brands_id"`
-	CategoriesID   uint   `json:"categories_id"`
-	SuppliersID    uint   `json:"suppliers_id"`
+	BrandID        uint   `json:"brand_id"`
+	CategoryID     uint   `json:"category_id"`
+	SupplierID     uint   `json:"supplier_id"`
 	UnitPrice      int    `json:"unit_price"`
 	DiscountPrice  int    `json:"discount_price"`
 	Tags           string `json:"tags"`
@@ -168,9 +168,9 @@ func (p *Product) GetProductResp() *ProductResp {
 		Name:           p.Name,
 		Description:    p.Description,
 		Specifications: p.Specifications,
-		BrandsID:       p.BrandID,
-		CategoriesID:   p.CategoryID,
-		SuppliersID:    p.SupplierID,
+		BrandID:        p.BrandID,
+		CategoryID:     p.CategoryID,
+		SupplierID:     p.SupplierID,
 		UnitPrice:      p.UnitPrice,
 		DiscountPrice:  p.DiscountPrice,
 		Tags:           p.Tags,
