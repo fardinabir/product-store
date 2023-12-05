@@ -41,6 +41,13 @@ type CategorySuccessResp200 struct {
 	data models.CategoryResp
 }
 
+// category tree response
+// swagger:response CategoryTreeResp
+type CategoryTreeResp struct {
+	// in:body
+	data []models.CategoryNode
+}
+
 // model for delete response
 // swagger:response DeleteResponse
 type DeleteResponse struct {

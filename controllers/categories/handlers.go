@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/fardinabir/auth-guard/service"
 	"github.com/fardinabir/product-store/controllers"
 	"github.com/fardinabir/product-store/models"
 	"github.com/go-chi/chi/v5"
@@ -124,7 +123,7 @@ func (rs *CategoryResource) UpdateCategory(w http.ResponseWriter, r *http.Reques
 	}
 	log.Println("Category Updated : ", category)
 	newResp := category.GetCategoryResp()
-	service.RespondWithJSON(w, http.StatusOK, newResp)
+	controllers.RespondWithJSON(w, http.StatusOK, newResp)
 }
 
 // swagger:route DELETE /categories/{id} Categories DeleteCategory
@@ -142,7 +141,7 @@ func (rs *CategoryResource) DeleteCategory(w http.ResponseWriter, r *http.Reques
 		return
 	}
 	log.Println("Category Deleted : ", category)
-	service.RespondWithJSON(w, http.StatusOK, map[string]string{
+	controllers.RespondWithJSON(w, http.StatusOK, map[string]string{
 		"message": "Deleted Successfully"})
 }
 
@@ -151,7 +150,7 @@ func (rs *CategoryResource) DeleteCategory(w http.ResponseWriter, r *http.Reques
 // responses:
 //
 //	500: ErrorResponse
-//	200: SuccessRespCategories
+//	200: CategoryTreeResp
 func (rs *CategoryResource) GetCategoriesTree(w http.ResponseWriter, r *http.Request) {
 	res, err := rs.Categories.GetCategoriesTree(nil)
 	if err != nil {

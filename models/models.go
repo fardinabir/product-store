@@ -96,6 +96,24 @@ type Supplier struct {
 	IsVerifiedSupplier bool
 }
 
+type SupplierResp struct {
+	Name               string
+	Email              string
+	Phone              string
+	StatusId           string
+	IsVerifiedSupplier bool
+}
+
+func (b *Supplier) GetSupplierResp() *SupplierResp {
+	return &SupplierResp{
+		Name:               b.Name,
+		Email:              b.Email,
+		Phone:              b.Phone,
+		StatusId:           b.StatusId,
+		IsVerifiedSupplier: b.IsVerifiedSupplier,
+	}
+}
+
 type Product struct {
 	*gorm.Model
 	Name           string

@@ -165,6 +165,23 @@
         }
       }
     },
+    "/categories/get-tree": {
+      "get": {
+        "description": "For getting the tree of all the categories, shows both active and inactive categories",
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "GetCategoriesTree",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/CategoryTreeResp"
+          },
+          "500": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    },
     "/categories/new": {
       "post": {
         "description": "For creating new category entry",
@@ -326,6 +343,28 @@
       },
       "x-go-package": "github.com/fardinabir/product-store/models"
     },
+    "CategoryNode": {
+      "type": "object",
+      "properties": {
+        "category_name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CategoryNode"
+          },
+          "x-go-name": "Children"
+        },
+        "id": {
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "ID"
+        }
+      },
+      "x-go-package": "github.com/fardinabir/product-store/models"
+    },
     "CategoryReq": {
       "type": "object",
       "properties": {
@@ -386,6 +425,15 @@
       "description": "model for create categories success",
       "schema": {
         "$ref": "#/definitions/CategoryResp"
+      }
+    },
+    "CategoryTreeResp": {
+      "description": "category tree response",
+      "schema": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/CategoryNode"
+        }
       }
     },
     "DeleteResponse": {

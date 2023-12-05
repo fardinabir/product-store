@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/fardinabir/auth-guard/service"
 	"github.com/fardinabir/product-store/controllers"
 	"github.com/fardinabir/product-store/models"
 	"github.com/go-chi/chi/v5"
@@ -102,7 +101,7 @@ func (rs *BrandResource) UpdateBrand(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Println("Brand Updated : ", brand)
 	newResp := brand.GetBrandResp()
-	service.RespondWithJSON(w, http.StatusOK, newResp)
+	controllers.RespondWithJSON(w, http.StatusOK, newResp)
 }
 
 // swagger:route DELETE /brands/{id} Brands DeleteBrand
@@ -120,6 +119,6 @@ func (rs *BrandResource) DeleteBrand(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	log.Println("Brand Deleted : ", brand)
-	service.RespondWithJSON(w, http.StatusOK, map[string]string{
+	controllers.RespondWithJSON(w, http.StatusOK, map[string]string{
 		"message": "Deleted Successfully"})
 }
